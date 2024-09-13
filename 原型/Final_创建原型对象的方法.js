@@ -44,7 +44,7 @@ function inherit(subType, superType) {
 }
 //或者
 function Inherit(subType, superType) {
-    subType = Object.create(superType.prototype);
+    subType.prototype = Object.create(superType.prototype);
     Object.defineProperty(subType, "constructor", {
         value: subType,
         enumerable: false,

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <script>
+        function debounce(fn, delay) {
+            //记录上一次出发的timer
+            let timer = null;
+            //触发事件执行的函数
+            const _debounce = function (...arguments) {
+                //有更多次的操作，就清除上一次的timer
+                if (timer) {
+                    clearTimeout(timer);
+                } //拿到上一次的timer，如果有就清除
+                timer = setTimeout(() => {
+                    fn.apply(this, arguments);
+                    timer = null;
+                    //执行过上一个timer后重新置为null
+                }, delay);
+            };
+            return _debounce;
+        }
+    </script>
+    <body>
+        <input type="text" />
+        <button>提交</button>
+        <script>
+            const inputEl = document.querySelector("input");
+            let counter = 0;
+            inputEl.oninput = debounce(function (event) {
+                console.log("输入了", this.value, event);
+            }, 3000);
+        </script>
+    </body>
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <script>
+        function debounce(fn, delay, immediate = true) {
+            //记录上一次出发的timer
+            let timer = null;
+            let isInvoke = false;
+            //触发事件执行的函数
+            const _debounce = function (...arguments) {
+                //有更多次的操作，就清除上一次的timer
+
+                //第一次操作是不需要延迟的
+                if (immediate && !isInvoke) {
+                    fn.apply(this, arguments);
+                    isInvoke = true;
+                    return;
+                }
+                if (timer) {
+                    clearTimeout(timer);
+                } //拿到上一次的timer，如果有就清除
+                timer = setTimeout(() => {
+                    fn.apply(this, arguments);
+                    isInvoke = false;
+                    timer = null;
+                    //执行过上一个timer后重新置为null
+                }, delay);
+            };
+            //3.给返回的函数添加一个cancel方法，用于取消防抖
+            _debounce.cancel = function () {
+                if (timer) {
+                    clearTimeout(timer);
+                    timer = null;
+                }
+            };
+            return _debounce;
+        }
+    </script>
+    <body>
+        <input type="text" />
+        <button>提交</button>
+        <button>取消</button>
+        <script>
+            const inputEl = document.querySelector("input");
+            const buttonEl = document.querySelector("button");
+            const cancelButtonEl = document.querySelectorAll("button")[1];
+            const debounceFn = debounce(function (event) {
+                console.log("输入了", this.value, event);
+            }, 3000);
+            inputEl.oninput = debounceFn;
+            cancelButtonEl.onclick = function () {
+                debounceFn.cancel();
+            };
+        </script>
+    </body>
+</html>

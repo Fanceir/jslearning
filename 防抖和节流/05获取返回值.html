@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <script>
+        function debounce(fn, delay, immediate = true, resultCallback) {
+            let timer = null;
+            let isInvoke = false;
+            const _debounce = function (...args) {
+                return new Promise((resolve, reject) => {
+                    try {
+                        if (timer) clearTimeout(timer);
+                        let res = undefined;
+
+                        //第一次操作不需要延迟
+                        if (immediate && !isInvoke) {
+                            res = fn.apply(this, args);
+                            isInvoke = true;
+                            if (resultCallback) resultCallback(res);
+                            resolve(res);
+                            isInvoke = false;
+                            return;
+                        }
+                        timer = setTimeout(() => {
+                            res = fn.apply(this, args);
+                            if (resultCallback) resultCallback(res);
+                            resolve(res);
+                            timer = null;
+                            isInvoke = false;
+                        }, delay);
+                    } catch (error) {
+                        reject(error);
+                    }
+                });
+            };
+            _debounce.cancel = function () {
+                if (timer) {
+                    clearTimeout(timer);
+                    timer = null;
+                }
+            };
+            return _debounce;
+        }
+    </script>
+    <body>
+        <input type="text" />
+        <button>提交</button>
+        <button>取消</button>
+        <script>
+            const inputEl = document.querySelector("input");
+            const buttonEl = document.querySelector("button");
+            const cancelButtonEl = document.querySelectorAll("button")[1];
+            const debounceFn = debounce(
+                function (name, age, height) {
+                    console.log("输入了", name, age, height);
+                    return { name, age, height };
+                },
+                1000,
+                false
+            );
+            debounceFn("张三", 18, 180).then((res) => {
+                console.log(res);
+            });
+            inputEl.oninput = debounceFn;
+            cancelButtonEl.onclick = function () {
+                debounceFn.cancel();
+            };
+        </script>
+    </body>
+</html>

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+
+    <body>
+        <button>按钮</button>
+        <input type="text" />
+        <script src="./js/underscore.js"></script>
+        <script>
+            let counter = 1;
+            const throttleFn = _.throttle(function (event) {
+                console.log(`发送网络请求${counter++}:`, this, event);
+            }, 1000);
+            let btn = document.querySelector("button");
+            btn.onclick = throttleFn;
+            
+        </script>
+    </body>
+</html>

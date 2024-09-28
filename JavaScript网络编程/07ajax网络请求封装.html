@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <script>
+            function myAjax({
+                url,
+                method = "get",
+                timeout = 3000,
+                headers = {},
+                data = {},
+                success,
+                failure,
+            } = {}) {
+                const xhr = new XMLHttpRequest();
+                xhr.onload = function () {
+                    if (xhr.status >= 200 && xhr.status < 300) {
+                        success(xhr.response);
+                    } else {
+                        failure(xhr.status);
+                    }
+                };
+                xhr.responseType = "json";
+                if (method.toLowerCase() === "get") {
+                    const queryStrings = [];
+                    for (const key in data) {
+                        queryStrings.push(`${key}=${data[key]}`);
+                    }
+                    // url += "?" + queryStrings.join("&");
+                    xhr.open("get", url, true);
+                    // console.log(url);
+                    xhr.send();
+                } else {
+                    xhr.open("post", url, true);
+                    xhr.setRequestHeader("Content-Type", "application/json");
+                    xhr.send(JSON.stringify(data));
+                }
+                return xhr;
+            }
+            myAjax({
+                url: "https://api.github.com/users/Fanceir",
+                method: "get",
+                success: function (res) {
+                    console.log(res);
+                },
+                failure: function (status) {
+                    console.log("请求失败", status);
+                },
+            });
+        </script>
+    </body>
+</html>

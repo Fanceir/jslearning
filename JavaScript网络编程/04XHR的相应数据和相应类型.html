@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <script>
+            //1.创建一个XMLHttpRequest对象
+            const xhr = new XMLHttpRequest();
+
+            //onload 可以监听到数据加载完成
+            xhr.onload = function () {
+                // const resJSON = JSON.parse(xhr.response);
+                console.log(xhr.response);
+            };
+
+            //xhr默认会设置一个responseType属性
+            xhr.responseType = "json";
+            // xhr.open("get", "https://api.github.com/users/Fanceir", true);
+            xhr.open("get", "https://api.github.com/users/Fanceir", true);
+            xhr.send();
+        </script>
+    </body>
+</html>

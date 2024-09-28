@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+
+    <body>
+        <form class="info">
+            <input type="text" name="username" />
+            <input type="password" name="password" />
+        </form>
+        <button class="send">发送请求</button>
+        <script>
+            const formEl = document.querySelector(".info");
+            const sendBtn = document.querySelector(".send");
+            sendBtn.onclick = function () {
+                const xhr = new XMLHttpRequest();
+                xhr.onload = function () {
+                    console.log(xhr.response);
+                };
+                xhr.responseType = "json";
+                //! get请求
+                // xhr.open("get", "https://api.github.com/users/Fanceir", true);
+                // xhr.send();
+
+                //! post请求
+                xhr.open("post", "https://api.github.com/users/Fanceir", true);
+                xhr.setRequestHeader("Content-Type", "application/json");
+                xhr.send(
+                    JSON.stringify({
+                        username: formEl.username.value,
+                        password: formEl.password.value,
+                    })
+                );
+            };
+        </script>
+    </body>
+</html>

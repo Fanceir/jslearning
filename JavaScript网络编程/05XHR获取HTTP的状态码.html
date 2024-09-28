@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <script>
+            const xhr = new XMLHttpRequest();
+            xhr.onload = function () {
+                console.log(xhr.status, xhr.statusText);
+                if (xhr.status >= 200 && xhr.status < 300) {
+                    console.log(xhr.response);
+                } else {
+                    console.log("请求失败");
+                }
+            };
+            xhr.onerror = function () {
+                console.log("请求失败", xhr.status, xhr.statusText);
+            };
+            xhr.responseType = "json";
+            xhr.open("get", "https://api.github.com/users/Fanceir", true);
+            xhr.send();
+        </script>
+    </body>
+</html>

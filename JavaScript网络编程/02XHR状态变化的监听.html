@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <script>
+        const xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState !== XMLHttpRequest.DONE) {
+                return;
+            }
+            console.log(xhr.response);
+        };
+        xhr.open("GET", "https://www.fanxu.online", true);
+        //第三个参数是是否是异步的请求
+
+        xhr.send();
+
+        //这是一个异步的网络请求是不会阻碍后续的代码执行的
+    </script>
+    <body></body>
+</html>

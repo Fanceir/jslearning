@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <script>
+            const xhr = new XMLHttpRequest();
+            //onload 可以监听到请求成功的事件
+            xhr.onload = function () {
+                console.log(xhr.response);
+            };
+            xhr.open("get", "https://www.fanxu.online", true);
+            xhr.send();
+        </script>
+    </body>
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <script>
+            //创建XMLHttpRequest对象
+            const xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState !== XMLHttpRequest.DONE) {
+                    return;
+                }
+                const resJSON = JSON.parse(xhr.response);
+                console.log(resJSON);
+            };
+            //配置请求
+            xhr.open("GET", "https://api.github.com/users/Fanceir", true);
+            //发送网络请求
+            xhr.send();
+            //创建网络请求的过程
+            //1.创建XMLHttpRequest对象
+            //2.配置请求
+            //3.发送请求
+        </script>
+    </body>
+</html>

@@ -1,0 +1,11 @@
+.wp {
+  position: relative;
+}
+.box {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-left: -50px;
+  margin-top: -50px;
+}
+/* 这种方法需要提前知道物体的长度宽度 */
